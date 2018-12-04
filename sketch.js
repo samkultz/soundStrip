@@ -6,6 +6,7 @@ var spHistory = [];
 
 // makes sure that the sound is fully preloaded before anything else
 function preload() {
+  //loads this file to the code
   song = loadSound('1.mp3');
 }
 
