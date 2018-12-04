@@ -1,0 +1,64 @@
+var song;
+var fft;
+var button;
+
+var spHistory = [];
+
+
+function preload() {
+  song = loadSound('1.mp3');
+}
+
+function setup() {
+  createCanvas(720, 200);
+  angleMode(DEGREES);
+  song.play();
+  fft = new p5.FFT(.9, 16);
+
+}
+
+function draw() {
+  background(0);
+  var spectrum = fft.analyze();
+
+  //  graph 1
+  spHistory.push(spectrum[2]);
+  beginShape(POINTS);
+    noFill();
+  //vai lendo o arquivo de audio
+  for(var i = 0; i < spHistory.length; i++){
+    var y = map(spHistory[i], 0,256, height,0)
+    stroke(255);
+    vertex(i,y);
+  }
+  endShape();
+
+  //  graph 2
+  spHistory.push(spectrum[6]);
+  beginShape(POINTS);
+    noFill();
+  //vai lendo o arquivo de audio
+  for(var i = 0; i < spHistory.length; i++){
+    var y = map(spHistory[i], 0,256, height,0)
+    stroke(255);
+    vertex(i,y);
+  }
+  endShape();
+
+  //  graph 2
+  spHistory.push(spectrum[10]);
+  beginShape(POINTS);
+    noFill();
+  //vai lendo o arquivo de audio
+  for(var i = 0; i < spHistory.length; i++){
+    var y = map(spHistory[i], 0,256, height,0)
+    stroke(255);
+    vertex(i,y);
+  }
+  endShape();
+
+
+  if(spHistory.length > width){
+      spHistory.splice(0, 1);
+  }
+}
